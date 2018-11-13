@@ -18,41 +18,32 @@ cidades_y = [0, 42102.500000, 42373.888900, 42885.833300, 42712.500000, 42933.33
 
 cidades_faltando = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
                     29, 30, 31, 32, 33, 34, 35, 36, 37, 38]
-temp, cidade = 0, 0
-ordem = [1]
 
-while len(cidades_faltando) >= 1:
-    x, y, z = 1, 1, 2
-    while x < 38:
-        y = x
-        temp = 0
-        if y not in ordem or len(ordem) == 1:
-            while y < 38:
-                if z in ordem and z != 1:
-                    print()
-                else:
-                    distancia = sqrt((cidades_x[z] - cidades_x[x]) ** 2 + (cidades_y[z] - cidades_y[x]) ** 2)
-                    if distancia < temp or temp == 0:
-                        temp = distancia
-                        cidade = z
-                    print("----")
-                    print(f'foi {x} a {z}')
-                    print(f'Dist de {cidades_x[x]} a {cidades_y[z]} é de {distancia}')
-                y += 1
-                z += 1
+ordem, trajeto = [1], 1
+controle = len(ordem)
+
+print()
+print('{:^60}'.format(' Algoritmo do Caixeiro Viajante - Maximiliano Meyer '))
+print('-' * 80)
+print('{:^5}{:^20}{:^20}{:^35}'.format('Trajeto', 'Cidade origem', 'Cidade destino', 'Distância'))
+print('-' * 80)
+while controle >= 1:
+    y = 2
+    x, distancia, temp = ordem[-1], 0, 0
+    while y <= 38:
+        if y in ordem and len(ordem) == 1 or y == x or y in ordem:
+            y += 1
         else:
-            x += 1
-            z += 1
-        if cidade not in ordem:
-            ordem.append(cidade)
-            cidades_faltando.remove(cidade)
-        x += 1
-        z = x + 1
-    print(f'ta faltando {len(cidades_faltando)}')
-    print(cidades_faltando)
-    print(ordem)
+            temp = sqrt((cidades_x[y] - cidades_x[x]) ** 2 + (cidades_y[y] - cidades_y[x]) ** 2)
+            if temp < distancia or distancia == 0:
+                distancia = temp
+                cidade = y
+            y += 1
+    print('Nº{:^5}{:^12}{}       {:^15}{}{:>20.3f} quilômetros'.format(trajeto, 'Cidade',x, 'Cidade', cidade, distancia))
+    ordem.append(cidade)
+    cidades_faltando.remove(cidade)
+    controle = len(cidades_faltando)
+    trajeto += 1
 
-print(temp)
-print(cidade)
-print(cidades_faltando)
-print(ordem)
+print()
+print(f'A menor distância é através do caminho {ordem}')
