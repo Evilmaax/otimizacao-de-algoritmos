@@ -6,7 +6,7 @@ cidades_x = [0, 11003.611100, 11108.611100, 11133.333300, 11155.833300, 11183.33
              11600.000000, 11690.555600, 11715.833300, 11751.111100, 11770.277800,
              11785.277800, 11822.777800, 11846.944400, 11963.055600, 11973.055600, 12058.333300, 12149.444400,
              12286.944400, 12300.000000, 12355.833300, 12363.333300, 12372.777800,
-             12386.666700, 12421.666700, 12645.000000]
+             12386.666700, 12421.666700, 12645.000000]              #Todas as distâncias do eixo X
 
 cidades_y = [0, 42102.500000, 42373.888900, 42885.833300, 42712.500000, 42933.333300, 42853.333300, 42929.444400,
              42983.333300, 43000.277800, 42057.222200, 43252.777800,
@@ -14,7 +14,7 @@ cidades_y = [0, 42102.500000, 42373.888900, 42885.833300, 42712.500000, 42933.33
              43150.000000, 42686.666700, 41836.111100, 42814.444400, 42651.944400,
              42884.444400, 42673.611100, 42660.555600, 43290.555600, 43026.111100, 42195.555600, 42477.500000,
              43355.555600, 42433.333300, 43156.388900, 43189.166700, 42711.388900,
-             43334.722200, 42895.555600, 42973.333300]
+             43334.722200, 42895.555600, 42973.333300]              #Todas as distâncias do eixo Y
 
 conexoes = [[], [2, 4, 10, 15, 17], [16, 3, 7, 10, 11], [12, 18, 28, 27, 29], [11, 19, 22, 13, 14, 6, 16], [27, 29, 30],
             [31, 33, 34, 17, 8], [8, 9, 10, 38, 3, 26, 13, 37], [4, 7, 15, 17, 25, 29, 28, 34, 35], [37, 23, 21, 11],
@@ -22,25 +22,25 @@ conexoes = [[], [2, 4, 10, 15, 17], [16, 3, 7, 10, 11], [12, 18, 28, 27, 29], [1
             [7, 6, 3, 2, 9], [10, 11, 14], [23], [34, 33, 37, 38], [21, 20, 19], [17, 16, 2, 8], [14, 3, 2, 6],
             [5, 11, 16, 22], [28], [26], [32, 31], [27], [29, 30, 20], [10, 22, 23, 7], [9, 12, 15], [19, 20, 22],
             [11, 23, 29, 12], [23, 33], [27, 17, 14, 16], [16, 2, 7, 8, 9], [10, 9, 15, 28, 38],
-            [27, 23, 32, 12, 11, 8], [6, 23, 34, 33, 2, 37], [25, 23, 12, 9], [23, 15, 18, 22]]
+            [27, 23, 32, 12, 11, 8], [6, 23, 34, 33, 2, 37], [25, 23, 12, 9], [23, 15, 18, 22]] #Lista contendo diversas listas
+                 #onde cada qual possui as conexões do nodo equivalente. Ex: lista interna 1 conteém as conexões do nodo 1, etc.
 
-nodos_faltando = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+nodos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
                   29, 30, 31, 32, 33, 34, 35, 36, 37, 38]
-nodos_prontos = []
 resultado = []
 
 print()
 print('Algoritmo da árvore geradora mínima - Maximiliano Meyer ')
 print()
-for c in nodos_faltando:
-    prox, peso, temp = 0, 0, 0  # X é nodo, Y é o que alterna
-    for x in range(0, len(conexoes[c])):
-        temp = sqrt((cidades_x[conexoes[c][x]] - cidades_x[c]) ** 2 + (cidades_y[conexoes[c][x]] - cidades_y[c]) ** 2)
-        if temp < peso or peso == 0:
+
+for c in nodos:                                           #Vai executar 1 laço para cada item da lista "nodos"
+    prox, peso, temp = 0, 0, 0
+    for x in range(0, len(conexoes[c])):            #Executa o laço igual ao número de conexões do nodo em questão
+        temp = sqrt((cidades_x[conexoes[c][x]] - cidades_x[c]) ** 2 + (cidades_y[conexoes[c][x]] - cidades_y[c]) ** 2) #Calculo do peso das conexões entre os nodos
+        if temp < peso or peso == 0:                #Se encontrar uma conexão mais "barata" ou a variável estiver zerada a conexão é selecionada
             peso = temp
             prox = conexoes[c][x]
     resultado.append(f'Nodo {c} conecta com {prox} sob um peso de {peso:.2f}')
-    nodos_prontos.append(prox)
 
-for x in range(0, len(nodos_prontos)):
+for x in range(0, len(resultado)):                  #Laço simples para printar todos os resultados e conexões
     print(resultado[x])
