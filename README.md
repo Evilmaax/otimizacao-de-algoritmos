@@ -8,4 +8,6 @@ O projeto é formado por 2 algoritmos:
 <li> Árvore Geradora Mínima</li>
 <li>Caixeiro Viajante</li>
 </lu>
+<lu>
+</lu>
 Ambos foram desenvolvidos em Python.
